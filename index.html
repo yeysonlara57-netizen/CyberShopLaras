@@ -85,37 +85,26 @@
     const contenedor = document.getElementById('productos');
 
    productos.forEach(p => {
-  const div = document.createElement('div');
-  div.className = 'producto';
+      const div = document.createElement('div');
+      div.className = 'producto';
 
-  // Crear el contenido HTML de cada producto
-  div.innerHTML = `
-    <img src="${p.imagen || 'https://via.placeholder.com/200x150?text=' + p.nombre}" alt="${p.nombre}">
-    <h3>${p.nombre}</h3>
-    <p>${p.descripcion}</p>
-    <p class="precio">L ${p.precio}</p>
-    <div class="botones">
-      <a href="https://wa.me/${telefono}?text=Hola, quiero más información sobre ${p.nombre}" target="_blank">WhatsApp</a>
-      <button id="like-${p.id}">❤️ ${likes[p.id] || 0} Likes</button>
-    </div>
-  `;
+      div.innerHTML = `
+        <img src="${p.imagen || 'https://via.placeholder.com/200x150?text=' + p.nombre}" alt="${p.nombre}">
+        <h3>${p.nombre}</h3>
+        <p>${p.descripcion}</p>
+        <p class="precio">$${p.precio}</p>
+        <div class="botones">
+          <a href="https://wa.me/${telefono}?text=Hola, quiero más información sobre ${p.nombre}" target="_blank">WhatsApp</a>
+          <button id="like-${p.id}">${likes[p.id] ? '❤️' : '🤍'} Like</button>
+        </div>
+      `;
 
-  // Agregar el producto al contenedor
-  contenedor.appendChild(div);
+      contenedor.appendChild(div);
 
-  // Ahora sí, agregar el evento al botón después de insertarlo en el DOM
-  const botonLike = div.querySelector(`#like-${p.id}`);
-  botonLike.addEventListener('click', () => {
-    // Si no tiene likes, empieza en 0
-    likes[p.id] = (likes[p.id] || 0) + 1;
-
-    // Guardar en localStorage
-    guardarLikes();
-
-    // Actualizar texto del botón
-    botonLike.textContent = `❤️ ${likes[p.id]} Likes`;
-  });
-});
+      div.querySelector(`#like-${p.id}`).addEventListener('click', () => {
+        likes[p.id] = !likes[p.id];
+        guardarLikes();
+        div.querySelector(`#like-${p.id}`).textContent = likes[p.id] ? '❤️ Like' : '🤍 Like';
       });
     });
   </script>
