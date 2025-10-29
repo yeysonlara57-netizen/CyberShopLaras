@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> -CyberShop Lara's-</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #cce7ff;;
+    }
+    h1 {
+      text-align: center;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .producto {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+    }
+    .producto img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .precio {
+      color: #007b00;
+      font-weight: bold;
+    }
+    .botones {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-around;
+    }
+    button, a {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    a {
+      background: #25d366;
+      color: white;
+      text-decoration: none;
+    }
+    button {
+      background: #eee;
+    }
+    .liked {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>CyberShop Lara's</h1>
+  <div class="productos" id="productos"></div>
+
+  <script>
+    const telefono = '93353776'; // 
+
+    const productos = [
+      { id: 'p1', nombre: 'Auriculares inalámbricos', precio: 25, imagen: 'auriculaina5.jpg', descripcion: '20h de batería' },
+      { id: 'p2', nombre: 'Altavoz Bluetooth', precio: 18.5, imagen: 'alexa.jpg', descripcion: 'Resistente al agua' },
+      { id: 'p3', nombre: 'Mouse', precio: 22, imagen: 'mouse2.jpg', descripcion: 'Tipo USB,Resistente' },
+      { id: 'p4', nombre: 'Smartwatch básico', precio: 34, imagen: 'aple.jpg', descripcion: 'Monitor de sueño' }
+    ];
+
+    const likes = JSON.parse(localStorage.getItem('likes') || '{}');
+
+    function guardarLikes() {
+      localStorage.setItem('likes', JSON.stringify(likes));
+    }
+
+    const contenedor = document.getElementById('productos');
+
+    productos.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'producto';
+
+      div.innerHTML = `
+        <img src="${p.imagen || 'https://via.placeholder.com/200x150?text=' + p.nombre}" alt="${p.nombre}">
+        <h3>${p.nombre}</h3>
+        <p>${p.descripcion}</p>
+        <p class="precio">$${p.precio}</p>
+        <div class="botones">
+          <a href="https://wa.me/${telefono}?text=Hola, quiero más información sobre ${p.nombre}" target="_blank">WhatsApp</a>
+          <button id="like-${p.id}">${likes[p.id] ? '❤️' : '🤍'} Like</button>
+        </div>
+      `;
+
+      contenedor.appendChild(div);
+
+      div.querySelector(`#like-${p.id}`).addEventListener('click', () => {
+        likes[p.id] = !likes[p.id];
+        guardarLikes();
+        div.querySelector(`#like-${p.id}`).textContent = likes[p.id] ? '❤️ Like' : '🤍 Like';
+      });
+    });
+  </script>
+</body>
+</html>
