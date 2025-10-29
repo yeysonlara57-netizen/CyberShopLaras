@@ -95,7 +95,7 @@
         <p class="precio">L ${p.precio}</p>
         <div class="botones">
           <a href="https://wa.me/${telefono}?text=Hola, quiero más información sobre ${p.nombre}" target="_blank">WhatsApp</a>
-          <button id="like-${p.id}">${likes[p.id] ? '❤️' : '🤍'} Like</button>
+          <button id="like-${p.id}">${likes[p.id] ? '❤️' : '🤍'} (<span id="count-${likes[p.id] || 0}</span>) Like</button>
         </div>
       `;
 
@@ -110,5 +110,6 @@
   </script>
 </body>
 </html>
+
 
 
