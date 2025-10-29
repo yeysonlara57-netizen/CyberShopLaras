@@ -92,7 +92,7 @@
         <img src="${p.imagen || 'https://via.placeholder.com/200x150?text=' + p.nombre}" alt="${p.nombre}">
         <h3>${p.nombre}</h3>
         <p>${p.descripcion}</p>
-        <p class="precio">$${p.precio}</p>
+        <p class="precio">L ${p.precio}</p>
         <div class="botones">
           <a href="https://wa.me/${telefono}?text=Hola, quiero más información sobre ${p.nombre}" target="_blank">WhatsApp</a>
           <button id="like-${p.id}">${likes[p.id] ? '❤️' : '🤍'} Like</button>
@@ -110,3 +110,4 @@
   </script>
 </body>
 </html>
+
